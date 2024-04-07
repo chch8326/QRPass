@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Properties>
+		<!-- 로그 파일 생성 경로 -->
+		<Property name="LOG_PATH">D:\workspace\log</Property>	
+		<!-- 로그 출력 형태 -->
+		<Property name="LOG_FORMAT">[%d{yyyy-MM-dd HH:mm:ss}:%-3relative] [%-5level][%file:%line] ${PID:-} --- [%15.15thread] %-40.40logger{36} : %msg%n</Property>	
+	</Properties>
+	<Appenders>
+		<!-- 콘솔 로그 -->
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${LOG_FORMAT}" />
+		</Console>
+		<!-- 로그 파일 -->
+		<RollingFile name="logFile" fileName="${LOG_PATH}/log4j2.log" filePattern="${LOG_PATH}/log4j2_%d{yyyyMMdd}_%i.log">
+			<PatternLayout pattern="${LOG_FORMAT}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="30MB" />					  <!-- 30MB 용량이 초과시 DefaultRolloverStrategy 정책만큼 넘버링 -->  
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />    <!-- 일별 로그 파일 생성-->              
+			</Policies>
+			<DefaultRolloverStrategy>
+				<Delete basePath="${LOG_PATH}">
+					<IfFileName glob="*.log" />    <!-- 삭제할 파일명 -->
+                	<IfLastModified age="3d" />    <!-- 3일이 경과한 로그파일은 자동 삭제 -->
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<!-- 기본 로그레벨 info로 설정 -->
+		<Root level="info">
+			<AppenderRef ref="console" />
+            <AppenderRef ref="logFile" />
+		</Root>
+		<!-- 로그 파일은 로그레벨 debug로 설정 -->
+		<logger name="com.qurepass" level="debug" additivity="true">
+			<AppenderRef ref="logFile" />
+		</logger>
+	</Loggers>
+</Configuration>

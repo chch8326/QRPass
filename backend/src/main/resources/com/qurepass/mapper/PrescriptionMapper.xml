@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qurepass.mapper.PrescriptionMapper">
+	<!-- 처방전 목록 조회 -->
+	<select id="getPrescriptionList" resultType="java.util.HashMap">
+		SELECT 
+			A.PRE_DT 
+			, A.PRE_NO
+			, B.PAT_NO
+			, B.PAT_NM
+			, B.JUMIN_NO
+			, A.DISEASE_SIGN
+			, A.USE_MTH
+			, A.USE_GIGAN
+			, A.JOJE_ORG_NM
+			, A.JOJE_CMST_NM
+			, A.JOJE_AMT
+			, A.JOJE_DT
+			, A.JOJE_NOTE
+			, A.PRE_PERP
+			, A.WONNAE_OE_YN
+			, A.PRE_ILSI
+			, B.GENDER
+			, B.TEL_NO
+		FROM PRESCRIPTION A, PATIENT B
+		WHERE A.PAT_JUMIN_NO = B.JUMIN_NO
+		ORDER BY A.PRE_ILSI DESC
+	</select>
+	
+	<!-- 처방전 목록 갯수 조회 -->
+	<select id="getPrescriptionCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM PRESCRIPTION A, PATIENT B
+		WHERE A.PAT_JUMIN_NO = B.JUMIN_NO
+	</select>
+	
+	<!-- 해당 교부일자의 최대 교부번호 산출 -->
+	<select id="getMaxPresNo" parameterType="String" resultType="int">
+		SELECT NVL(MAX(PRE_NO), 0) AS PRE_NO
+		FROM PRESCRIPTION
+		WHERE PRE_DT = #{presDt}
+	</select>
+	
+	<!-- 교부일자와 주민번호로 최대 교부번호 산출 -->
+	<select id="getMaxPresNoDetail" parameterType="String" resultType="int">
+		SELECT NVL(MAX(PRE_NO), 0) AS PRE_NO
+		FROM PRESCRIPTION
+		WHERE PRE_DT = #{presDt}
+		AND PAT_JUMIN_NO = #{juminNo}
+	</select>
+	
+	<!-- 처방전 등록 -->
+	<insert id="prescriptionRegister" parameterType="java.util.HashMap">
+		INSERT INTO PRESCRIPTION (
+			PRE_DT
+			, PRE_NO
+			, PAT_JUMIN_NO
+			, DISEASE_SIGN
+			, PRE_PERP
+			, WONNAE_OE_YN
+			, USE_GIGAN
+			, USE_MTH
+			, PRE_ILSI
+		)
+		VALUES (
+			#{presDt, jdbcType=VARCHAR}
+			, #{presNo, jdbcType=NUMERIC}
+			, #{juminNo, jdbcType=VARCHAR}
+			, #{diseaseSign, jdbcType=VARCHAR}
+			, #{presPrep, jdbcType=NUMERIC}
+			, #{wonaeOeYn, jdbcType=NUMERIC}
+			, #{useGigan, jdbcType=NUMERIC}
+			, #{useMth, jdbcType=VARCHAR}
+			, #{presIlsi, jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<!-- 처방전 내역 등록 -->
+	<insert id="prescriptionHisRegister" parameterType="java.util.HashMap">
+		INSERT INTO PRESCRIPTION_HIS (
+			UIYAK_NO
+			, PRE_DT
+			, PRE_NO
+			, PAT_JUMIN_NO
+			, UIYAK_NM
+			, TUYAK_1_AMT
+			, TUYAK_1_CNT
+			, TOT_TUYAK_ILSU
+			, GEUBYEO_G
+		)
+		VALUES (
+			#{itemSeq, jdbcType=VARCHAR}
+			, #{presDt, jdbcType=VARCHAR}
+			, #{presNo, jdbcType=NUMERIC}
+			, #{juminNo, jdbcType=VARCHAR}
+			, #{itemName, jdbcType=VARCHAR}
+			, #{tuyak1Amt, jdbcType=NUMERIC}
+			, #{tuyak1Cnt, jdbcType=NUMERIC}
+			, #{totToyakIlsu, jdbcType=NUMERIC}
+			, #{gubun, jdbcType=NUMERIC}
+		)
+	</insert>
+</mapper>

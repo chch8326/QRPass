@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qurepass.mapper.PatientMapper">
+	<!-- 환자 목록 조회 -->
+	<select id="getPatientList" resultType="java.util.HashMap">
+		SELECT
+			PAT_NO
+			, PAT_NM
+			, JUMIN_NO
+			, GENDER
+			, TEL_NO
+		FROM PATIENT
+		ORDER BY PAT_NO DESC
+	</select>
+	
+	<!-- 환자 목록 갯수 -->
+	<select id="getPatientCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM PATIENT
+	</select>
+	
+	<!-- 환자 상세 조회 -->
+	<select id="getPatient" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT
+			PAT_NO
+			, PAT_NM
+			, JUMIN_NO
+			, GENDER
+			, TEL_NO
+		FROM PATIENT
+		WHERE PAT_NO = #{patNo}
+	</select>
+</mapper>

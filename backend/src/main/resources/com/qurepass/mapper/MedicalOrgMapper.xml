@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qurepass.mapper.MedicalOrgMapper">
+	<!-- 의료기관 조회 -->
+	<select id="getMedicalOrg" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT
+			MED_ORG_SER
+			, MED_ORG_NM
+			, MED_ORG_CODE
+			, MED_ORG_TEL
+			, MED_ORG_FAX_NO
+			, MED_ORG_EMAIL
+			, DOC_NM
+			, LICENSE_TYPE
+			, LICENSE_NO
+			, YOYANG_ORG_SIGN
+		FROM MED_ORG
+		WHERE MED_ORG_SER = #{medOrgSer}
+		AND MED_ORG_NM = #{medOrgNm}
+	</select>
+</mapper>

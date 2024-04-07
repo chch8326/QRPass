@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0a3c78"],{"0442":function(n,t,e){"use strict";e.r(t);var c=e("5c40");const o=Object(c["h"])("h3",null,"처방전 상세조회 화면",-1),r=[o];function u(n,t,e,o,u,a){return Object(c["A"])(),Object(c["g"])("div",null,r)}var a={data(){return{}},created(){},mounted(){console.log(this.$route.params)},methods:{}},d=e("6b0d"),s=e.n(d);const i=s()(a,[["render",u]]);t["default"]=i}}]);
+//# sourceMappingURL=chunk-2d0a3c78.62ea8fb6.js.map
