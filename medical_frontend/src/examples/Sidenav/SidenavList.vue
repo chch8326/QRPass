@@ -30,17 +30,6 @@
       </li>
       <!-- <li class="nav-item">
         <sidenav-item
-          url="/qr/view"
-          :class="getRoute() === 'qr-view' ? 'active' : ''"
-          :navText="this.$store.state.isRTL ? '' : 'QR'"
-        >
-          <template v-slot:icon>
-            <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
-          </template>
-        </sidenav-item>
-      </li> -->
-      <li class="nav-item">
-        <sidenav-item
           url="/virtual-reality"
           :class="getRoute() === 'virtual-reality' ? 'active' : ''"
           :navText="
@@ -111,7 +100,7 @@
             <i class="ni ni-collection text-info text-sm opacity-10"></i>
           </template>
         </sidenav-item>
-      </li>
+      </li> -->
     </ul>
   </div>
   <div class="pt-3 mx-3 mt-3 sidenav-footer">

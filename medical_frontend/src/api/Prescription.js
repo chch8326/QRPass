@@ -4,7 +4,7 @@ import request from "../utils/request"
 export function getPrescriptionList(data) {
     return request({
         url: "/pres/list",
-        method: "get",
+        method: "post",
         data
     })
 }
@@ -31,6 +31,15 @@ export function getPrescriptionRegister(data) {
 export function createPrescription(data) {
     return request({
         url: "/pres/pdf",
+        method: "post",
+        data
+    })
+}
+
+// 처방전 상세 조회 -송송이
+export function getPrescriptionDetail(data) {
+    return request({
+        url: "/pres/detail",
         method: "post",
         data
     })
