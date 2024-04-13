@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +41,7 @@ import com.itextpdf.tool.xml.pipeline.end.PdfWriterPipeline;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 import com.qurepass.service.PrescriptionService;
+import com.qurepass.utils.PagingUtils;
 import com.qurepass.utils.StrUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -69,19 +69,49 @@ public class PrescriptionController {
 	 * @throws Exception
 	 * @author 최창현
 	 */
-	@GetMapping("/list")
-	public ResponseEntity<Map<String, Object>> getPrescriptionList() throws Exception {
-		int prescriptionCnt = 0;
-		Map<String, Object> outMap = new HashMap<String, Object>();
+	@PostMapping("/list")
+	public ResponseEntity<Map<String, Object>> getPrescriptionList(@RequestBody Map<String, Object> map) throws Exception {
+		Map<String, Object> inMap   = (Map<String, Object>)map.get("data");
+		Map<String, Object> outMap  = new HashMap<String, Object>();		
 		
 		/* 처방전 목록 갯수 조회 */
-		prescriptionCnt = prescriptionService.getPrescriptionCnt();
-		outMap.put("presCnt", prescriptionCnt);
+		int prescriptionCnt = prescriptionService.getPrescriptionCnt(inMap);
+		
+		/* 페이징 처리 */
+		PagingUtils paging = new PagingUtils();
+		int pageNo         = Integer.parseInt(String.valueOf(inMap.get("pageNo")));
+		int amount         = Integer.parseInt(String.valueOf(inMap.get("amount")));
+		Object pagingInfo  = paging.pagingProcess(pageNo, amount, prescriptionCnt);
 		
 		/* 처방전 목록 조회 */
-		List<Map<String, Object>> prescriptionList = prescriptionService.getPrescriptionList();
-		outMap.put("presList", prescriptionList);
+		List<Map<String, Object>> prescriptionList = prescriptionService.getPrescriptionList(inMap);
 		
+		outMap.put("presCnt"   , prescriptionCnt);
+		outMap.put("pagingInfo", pagingInfo);
+		outMap.put("presList"  , prescriptionList);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(outMap);
+	}
+	
+	/**
+	 * 처방전 상세내역 조회
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 * @author 송송이
+	 */
+	@PostMapping("/detail")
+	public ResponseEntity<Map<String, Object>> getPrescriptionDetail(@RequestBody Map<String, Object> map) throws Exception {
+		/*
+		 * 1. 화면단에서 전송하는 파라미터를 받으세요.
+		 * 2. mybatis에서 사용할 데이터를 만들어야 할 경우 Map<String, Object> dataMpa = new HashMap<String, Object>(); dataMap을 이용하세요.
+		 * 3. 화면단에서 전송된 파라미터를 통해 다음과 같은 데이터를 도출하세요.
+		 *   3-1. 병원 데이터를 조회하세요.
+		 *   3-2. 한 처방전에서 처방된 의약품 리스트를 조회하세요.
+		 * 4. 조회 결과를 outMap에 담으세요.
+		 * 5. ResponseEntity를 return 하여 데이터를 화면으로 전송하세요.
+		 */
+		Map<String, Object> outMap = new HashMap<String, Object>();
 		return ResponseEntity.status(HttpStatus.OK).body(outMap);
 	}
 	

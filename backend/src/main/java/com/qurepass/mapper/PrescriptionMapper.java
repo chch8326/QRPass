@@ -9,10 +9,10 @@ import org.apache.ibatis.annotations.Param;
 public interface PrescriptionMapper {
 	
 	// 처방전 조회
-	public List<Map<String, Object>> getPrescriptionList();
+	public List<Map<String, Object>> getPrescriptionList(Map<String, Object> paramMap);
 	
 	// 처방전 목록 갯수
-	public int getPrescriptionCnt();
+	public int getPrescriptionCnt(Map<String, Object> paramMap);
 	
 	// 해당 교부일자의 최대 교부번호 산출
 	public int getMaxPresNo(String presDt);
@@ -25,4 +25,7 @@ public interface PrescriptionMapper {
 	
 	// 처방전내역 등록
 	public int prescriptionHisRegister(Map<String, Object> paramMap);
+	
+	// 처방전 상세내역 조회 - 송송이
+	// 코딩 후 처방전 상세내역 쿼리를 PrescriptionMapper.xml에 작성하세요.
 }

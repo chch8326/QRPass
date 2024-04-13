@@ -30,11 +30,10 @@ public class PatientController {
 	 */
 	@GetMapping("/list")
 	public ResponseEntity<Map<String, Object>> getPatientList() throws Exception {
-		int patientCnt = 0;
 		Map<String, Object> outMap = new HashMap<String, Object>();
 		
 		/* 환자 목록 갯수 조회 */
-		patientCnt = patientService.getPatientCnt();
+		int patientCnt = patientService.getPatientCnt();
 		outMap.put("patCnt", patientCnt);
 		
 		/* 환자 목록 조회 */

@@ -16,13 +16,13 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 	private PrescriptionMapper prescriptionMapper;
 	
 	@Override
-	public List<Map<String, Object>> getPrescriptionList() {
-		return prescriptionMapper.getPrescriptionList();
+	public List<Map<String, Object>> getPrescriptionList(Map<String, Object> paramMap) {
+		return prescriptionMapper.getPrescriptionList(paramMap);
 	}
 	
 	@Override
-	public int getPrescriptionCnt() {
-		return prescriptionMapper.getPrescriptionCnt();
+	public int getPrescriptionCnt(Map<String, Object> paramMap) {
+		return prescriptionMapper.getPrescriptionCnt(paramMap);
 	}
 	
 	@Override
