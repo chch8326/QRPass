@@ -30,8 +30,8 @@ public class MedicalOrgController {
 	 */
 	@PostMapping("/detail")
 	public ResponseEntity<Map<String, Object>> getMedicalOrg(@RequestBody Map<String, Object> map) throws Exception {
-		Map<String, Object> inMap = (Map<String, Object>)map.get("data");
-		Map<String, Object> outMap = new HashMap<String, Object>();
+		Map<String, Object> inMap   = (Map<String, Object>)map.get("data");
+		Map<String, Object> outMap  = new HashMap<String, Object>();
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
 		/* 의료기관 상세 조회 */

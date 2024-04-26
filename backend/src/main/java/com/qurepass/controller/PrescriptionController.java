@@ -94,28 +94,6 @@ public class PrescriptionController {
 	}
 	
 	/**
-	 * 처방전 상세내역 조회
-	 * @param map
-	 * @return
-	 * @throws Exception
-	 * @author 송송이
-	 */
-	@PostMapping("/detail")
-	public ResponseEntity<Map<String, Object>> getPrescriptionDetail(@RequestBody Map<String, Object> map) throws Exception {
-		/*
-		 * 1. 화면단에서 전송하는 파라미터를 받으세요.
-		 * 2. mybatis에서 사용할 데이터를 만들어야 할 경우 Map<String, Object> dataMpa = new HashMap<String, Object>(); dataMap을 이용하세요.
-		 * 3. 화면단에서 전송된 파라미터를 통해 다음과 같은 데이터를 도출하세요.
-		 *   3-1. 병원 데이터를 조회하세요.
-		 *   3-2. 한 처방전에서 처방된 의약품 리스트를 조회하세요.
-		 * 4. 조회 결과를 outMap에 담으세요.
-		 * 5. ResponseEntity를 return 하여 데이터를 화면으로 전송하세요.
-		 */
-		Map<String, Object> outMap = new HashMap<String, Object>();
-		return ResponseEntity.status(HttpStatus.OK).body(outMap);
-	}
-	
-	/**
 	 * 처방전 등록
 	 * @param map
 	 * @throws Exception

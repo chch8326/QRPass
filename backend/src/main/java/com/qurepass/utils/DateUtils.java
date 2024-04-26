@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class DateUtils {
 	
 	/**
-	 * 현재 날짜 산출
+	 * 
 	 * @return
 	 * @author 최창현
 	 */

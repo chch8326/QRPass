@@ -26,6 +26,4 @@ public interface PrescriptionMapper {
 	// 처방전내역 등록
 	public int prescriptionHisRegister(Map<String, Object> paramMap);
 	
-	// 처방전 상세내역 조회 - 송송이
-	// 코딩 후 처방전 상세내역 쿼리를 PrescriptionMapper.xml에 작성하세요.
 }

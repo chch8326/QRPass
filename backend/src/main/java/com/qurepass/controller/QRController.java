@@ -1,13 +1,24 @@
 package com.qurepass.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,8 +46,8 @@ public class QRController {
 		Map<String, Object> inMap            = (Map<String, Object>)map.get("data");
 		List<Map<String, Object>> uiyakpList = (List<Map<String, Object>>)inMap.get("uiyakpList");
 		
-		int width       = 500;
-		int height      = 500;
+		int width       = 200;
+		int height      = 200;
 		String imgType  = "png";
 		String filePath = qrPath;
 		String presDt   = (String)inMap.get("presDt");
@@ -82,6 +93,37 @@ public class QRController {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * 모바일 QR Code 출력
+	 * @param codeName
+	 * @return
+	 * @throws Exception
+	 * @author 최창현
+	 */
+	@GetMapping("/view")
+	public ResponseEntity<Resource> qrView(@Param("codeName") String codeName) throws Exception {
+		String filePath   = qrPath;
+		Resource resource = new FileSystemResource(filePath + codeName);
+		
+		// 리소스 미존재 시 404 에러
+		if(!resource.exists()) {
+			log.debug("NOT_FOUND 404 ERROR !!!");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resource);
+		}
+		
+		Path path          = null;
+		HttpHeaders header = new HttpHeaders();
+		
+		try {
+			path = Paths.get(filePath + codeName);
+			header.add("Content-Type", Files.probeContentType(path));
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).headers(header).body(resource);
 	}
 
 }

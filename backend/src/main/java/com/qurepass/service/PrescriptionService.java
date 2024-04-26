@@ -22,8 +22,5 @@ public interface PrescriptionService {
 	
 	// 처방전내역 등록
 	public int prescriptionHisRegister(Map<String, Object> paramMap);
-	
-	// 처방전 상세내역 - 송송이
-	// 작성 후 Impl class에 Override 하세요.
 
 }
