@@ -141,11 +141,8 @@ export default {
         }
       }
 
-      console.log(data);
-
       getPrescriptionList(data)
       .then((response) => {
-        console.log(response);
         this.pageList   = [];
         this.presCnt    = response.presCnt;
         this.presList   = response.presList;

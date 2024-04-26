@@ -307,7 +307,7 @@ export default {
       }
     },
 
-    // 환자 목록 조회
+    //  의료기관 조회
     getMedOrg: function() {
       let data = {
         "data": {
