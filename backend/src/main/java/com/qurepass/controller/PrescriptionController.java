@@ -94,6 +94,25 @@ public class PrescriptionController {
 	}
 	
 	/**
+	 * 처방전 상세 조회 
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 * @author 송송이
+	 */
+	@PostMapping("/detail")
+	public ResponseEntity<Map<String, Object>> getPrescriptionHisList (@RequestBody Map<String, Object> map) throws Exception {
+		Map<String, Object> inMap = (Map<String, Object>)map.get("data");
+		Map<String, Object> outMap = new HashMap<String, Object>();
+		
+		/* 의약품 조회*/
+		List<Map<String, Object>> uiyakpoomList = prescriptionService.getPrescriptionHisList(inMap);
+		outMap.put("uiyakpoomList", uiyakpoomList);
+	    
+		return ResponseEntity.status(HttpStatus.OK).body(outMap);
+	}
+	
+	/**
 	 * 처방전 등록
 	 * @param map
 	 * @throws Exception

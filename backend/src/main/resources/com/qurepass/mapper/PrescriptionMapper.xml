@@ -78,15 +78,15 @@
 			, PRE_ILSI
 		)
 		VALUES (
-			#{presDt, jdbcType=VARCHAR}
-			, #{presNo, jdbcType=NUMERIC}
-			, #{juminNo, jdbcType=VARCHAR}
+			#{presDt       , jdbcType=VARCHAR}
+			, #{presNo     , jdbcType=NUMERIC}
+			, #{juminNo    , jdbcType=VARCHAR}
 			, #{diseaseSign, jdbcType=VARCHAR}
-			, #{presPrep, jdbcType=NUMERIC}
-			, #{wonaeOeYn, jdbcType=NUMERIC}
-			, #{useGigan, jdbcType=NUMERIC}
-			, #{useMth, jdbcType=VARCHAR}
-			, #{presIlsi, jdbcType=VARCHAR}
+			, #{presPrep   , jdbcType=NUMERIC}
+			, #{wonaeOeYn  , jdbcType=NUMERIC}
+			, #{useGigan   , jdbcType=NUMERIC}
+			, #{useMth     , jdbcType=VARCHAR}
+			, #{presIlsi   , jdbcType=VARCHAR}
 		)
 	</insert>
 	
@@ -104,18 +104,33 @@
 			, GEUBYEO_G
 		)
 		VALUES (
-			#{itemSeq, jdbcType=VARCHAR}
-			, #{presDt, jdbcType=VARCHAR}
-			, #{presNo, jdbcType=NUMERIC}
-			, #{juminNo, jdbcType=VARCHAR}
-			, #{itemName, jdbcType=VARCHAR}
-			, #{tuyak1Amt, jdbcType=NUMERIC}
-			, #{tuyak1Cnt, jdbcType=NUMERIC}
+			#{itemSeq       , jdbcType=VARCHAR}
+			, #{presDt      , jdbcType=VARCHAR}
+			, #{presNo      , jdbcType=NUMERIC}
+			, #{juminNo     , jdbcType=VARCHAR}
+			, #{itemName    , jdbcType=VARCHAR}
+			, #{tuyak1Amt   , jdbcType=NUMERIC}
+			, #{tuyak1Cnt   , jdbcType=NUMERIC}
 			, #{totToyakIlsu, jdbcType=NUMERIC}
-			, #{gubun, jdbcType=NUMERIC}
+			, #{gubun       , jdbcType=NUMERIC}
 		)
 	</insert>
 	
-	<!-- 처방전 상세내역 조회 - 송송이 -->
-	<!-- 요구사항: 한 처방전에서 처방받은 의약품 리스트를 뽑는 쿼리를 작성하세요 -->
+	<!-- 의약품 조회 -->
+	<select id="getPrescriptionHisList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT 
+			UIYAK_NO
+			, PRE_DT
+			, PRE_NO
+			, PAT_JUMIN_NO
+			, UIYAK_NM
+			, TUYAK_1_AMT
+			, TUYAK_1_CNT
+			, TOT_TUYAK_ILSU
+			, GEUBYEO_G
+		FROM PRESCRIPTION_HIS
+		WHERE PRE_DT = #{presDt}
+	    AND PRE_NO = #{presNo}
+		AND PAT_JUMIN_NO = #{juminNo}
+	</select>
 </mapper>

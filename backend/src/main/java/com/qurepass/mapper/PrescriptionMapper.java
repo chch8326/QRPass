@@ -26,4 +26,7 @@ public interface PrescriptionMapper {
 	// 처방전내역 등록
 	public int prescriptionHisRegister(Map<String, Object> paramMap);
 	
+	// 의약품 조회
+	public List<Map<String, Object>> getPrescriptionHisList(Map<String, Object> paramMap);
+	
 }

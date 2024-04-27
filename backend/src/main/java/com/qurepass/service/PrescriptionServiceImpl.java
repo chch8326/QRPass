@@ -45,4 +45,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 		return prescriptionMapper.prescriptionHisRegister(paramMap);
 	}
 	
+	@Override
+	public List<Map<String, Object>> getPrescriptionHisList(Map<String, Object> paramMap) {
+		return prescriptionMapper.getPrescriptionHisList(paramMap);
+	}
 }
