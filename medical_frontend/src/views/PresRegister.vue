@@ -62,7 +62,7 @@
           <div class="col-md-6">
             <label class="form-control-label">질병분류기호</label>
             <div class="form-group">
-              <input class="form-control form-control-sm" id="diseaseSign" type="text" v-model=diseaseSign />
+              <input class="form-control form-control-sm" id="diseaseSign" type="text" v-model="diseaseSign" />
             </div>  
           </div>
           <div class="col-md-6">
